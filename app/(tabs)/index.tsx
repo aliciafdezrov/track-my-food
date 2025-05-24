@@ -9,9 +9,11 @@ import { getFoods } from '@/src/services/Database';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
+import AddFoodForm from '@/components/AddFoodForm';
+import { Food } from '@/models/Food.model';
 
 export default function MealsScreen() {
-  const [foods, setFoods] = useState([]);
+  const [foods, setFoods] = useState<Food[]>([]);
   const db = useSQLiteContext();
 
   useEffect(() => {
@@ -38,9 +40,7 @@ export default function MealsScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedText type="subtitle">Para añadir todas las comidas</ThemedText>
-      {foods.map((food: any) => (
-        <ThemedText type="default">{food.name}</ThemedText>
-      ))}
+     <AddFoodForm foods={foods} onSubmit={() => {}}/>
     </ParallaxScrollView>
   );
 }
