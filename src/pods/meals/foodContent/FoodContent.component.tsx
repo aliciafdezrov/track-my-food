@@ -45,14 +45,22 @@ export default function FoodContent({
         title="Eliminar alimento"
       >
         <ThemedText type="default">
-          Eliminar el alimento de esta comida
+          Eliminar el alimento:{' '}
+          <ThemedText type="defaultSemiBold">{foodToRemove?.name}</ThemedText>{' '}
+          de esta comida
         </ThemedText>
 
         <ThemedView style={styles.footerContainer}>
-          <Button variant="primary" title="Eliminar" onPress={handleOnDelete} />
           <Button
-            variant="outline"
+            variant="danger"
+            title="Eliminar"
+            size="small"
+            onPress={handleOnDelete}
+          />
+          <Button
+            variant="default"
             title="Cancelar"
+            size="small"
             onPress={handleOnCloseModal}
           />
         </ThemedView>
@@ -66,5 +74,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'flex-end',
     gap: 8,
+    marginTop: 16,
   },
 });

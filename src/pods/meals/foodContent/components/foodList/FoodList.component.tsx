@@ -57,7 +57,7 @@ export default function FoodList({
             </View>
           </View>
           <Button
-            variant="outline"
+            variant="danger"
             size="small"
             title="Eliminar"
             onPress={() => onRemoveMealFood(food)}

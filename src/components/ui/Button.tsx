@@ -8,7 +8,7 @@ import {
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from 'react-native';
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline';
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger' | 'default';
 type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonProps {
@@ -43,7 +43,10 @@ export function Button({
       case 'secondary':
         return colors.secondary;
       case 'outline':
+      case 'default':
         return 'transparent';
+      case 'danger':
+        return colors.error;
       default:
         return colors.primary;
     }
@@ -54,9 +57,12 @@ export function Button({
     switch (variant) {
       case 'primary':
       case 'secondary':
+      case 'danger':
         return colors.background;
       case 'outline':
         return colors.primary;
+      case 'default':
+        return colors.text;
       default:
         return colors.background;
     }
@@ -64,7 +70,14 @@ export function Button({
 
   const getBorderColor = () => {
     if (disabled) return colors.textSecondary;
-    return variant === 'outline' ? colors.primary : 'transparent';
+    switch (variant) {
+      case 'default':
+        return colors.text;
+      case 'outline':
+        return colors.primary;
+      default:
+        return 'transparent';
+    }
   };
 
   return (
@@ -111,6 +124,12 @@ const styles = StyleSheet.create({
   outline: {
     borderWidth: 1,
   },
+  danger: {
+    borderWidth: 1,
+  },
+  default: {
+    borderWidth: 1,
+  },
   small: {
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -132,6 +151,8 @@ const styles = StyleSheet.create({
   primaryText: {},
   secondaryText: {},
   outlineText: {},
+  dangerText: {},
+  defaultText: {},
   smallText: {
     fontSize: 14,
   },
