@@ -12,7 +12,7 @@ import { Text } from 'react-native';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Suspense } from 'react';
 import { SQLiteProvider } from 'expo-sqlite';
-import { initDatabase } from '@/features/food/services/Database';
+import { initDatabase } from '@/features/services/Database';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

@@ -2,13 +2,15 @@ import { getFoods } from '@/features/food/services/Database';
 import { useState, useEffect, useMemo } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Food } from '@/features/food/models/Food.model';
-import { MealFood } from '@/src/pods/meals/MealFood.vm';
-import { TextInput } from '@/src/components/ui/TextInput';
-import { Button } from '@/src/components/ui/Button';
+import { MealFood } from '@/pods/meals/MealFood.vm';
+import { TextInput } from '@/components/ui/TextInput';
+import { Button } from '@/components/ui/Button';
 import { StyleSheet } from 'react-native';
 import AddFoodFormModal from '@/pods/meals/addFoodFormModal/AddFoodFormModal.component';
-import { ThemedView } from '@/src/components/ThemedView';
+import { ThemedView } from '@/components/ThemedView';
 import FoodContent from '@/pods/meals/foodContent/FoodContent.component';
+import { getMealFromMealFoodList } from '@/src/utils/MealFood';
+import { addMeal } from '@/features/meal/services/Database';
 
 export function MealsContent() {
   const [foods, setFoods] = useState<Food[]>([]);
@@ -38,7 +40,10 @@ export function MealsContent() {
   }, [mealName, selectedFoods]);
 
   const onSave = () => {
-    console.log('save');
+    const meal = getMealFromMealFoodList(mealName, selectedFoods);
+    addMeal(db, meal);
+    setSelectedFoods([]);
+    setMealName('');
   };
 
   const handleRemoveMealFood = (mealFood: MealFood) => {
@@ -83,5 +88,6 @@ const styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'flex-end',
+    marginBottom: 32,
   },
 });
