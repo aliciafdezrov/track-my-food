@@ -1,8 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { useState } from 'react';
 import { Form } from '@/components/ui/Form';
 import { Food } from '@/models/Food.model';
@@ -10,6 +7,8 @@ import { DataTable } from '@/components/ui/DataTable';
 import { calculateFoodValues } from './AddFoodForm.helper';
 import { columns } from './AddFoodForm.constants';
 import { MealFood } from './AddFoodForm.model';
+import { Modal } from '@/components/ui/Modal';
+import { Button } from '@/components/ui/Button';
 
 interface AddFoodFormProps {
   onSubmit: (food: any) => void;
@@ -17,6 +16,7 @@ interface AddFoodFormProps {
 }
 
 export default function AddFoodForm({ onSubmit, foods }: AddFoodFormProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedFoods, setSelectedFoods] = useState<MealFood[]>([]);
 
   const handleSubmit = (data: { food: string; quantity: number }) => {
@@ -40,41 +40,45 @@ export default function AddFoodForm({ onSubmit, foods }: AddFoodFormProps) {
         },
       ]);
     }
+    handleOnClose();
   };
+
+  const handleOnClose = () => {
+    setIsOpen(false);
+  }
+
+  const handleOnClickAddFood = () => {
+    setIsOpen(true);
+  }
 
   return (
     <>
-      <Form
-        fields={[
-          {
-            type: 'select',
-            name: 'food',
-            label: 'Alimento',
-            options: foods.map((food) => ({
-              label: `${food.name} (${food.portion}g)`,
-              value: food.id,
-            })),
-            required: true,
-          },
-          {
-            type: 'number',
-            name: 'quantity',
-            label: 'Cantidad',
-            required: true,
-          },
-        ]}
-        onSubmit={handleSubmit}
-        submitButtonText="Añadir"
-      />
+      <Modal visible={isOpen} onClose={handleOnClose} title='Añadir alimento' >
+        <Form
+          fields={[
+            {
+              type: 'select',
+              name: 'food',
+              label: 'Alimento',
+              options: foods.map((food) => ({
+                label: `${food.name} (${food.portion}g)`,
+                value: food.id,
+              })),
+              required: true,
+            },
+            {
+              type: 'number',
+              name: 'quantity',
+              label: 'Cantidad',
+              required: true,
+            },
+          ]}
+          onSubmit={handleSubmit}
+          submitButtonText="Añadir"
+        />
+      </Modal>
+      <Button variant="secondary" size='small' title='Añadir comida' onPress={handleOnClickAddFood}/>
       <DataTable columns={columns} data={selectedFoods} />
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-});
