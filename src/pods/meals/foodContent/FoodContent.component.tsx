@@ -1,25 +1,24 @@
-import { DataTable } from '@/src/components/ui/DataTable';
 import { MealFood } from '../MealFood.vm';
-import { columns } from './FoodTable.constants';
 import { Modal } from '@/src/components/ui/Modal';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ThemedText } from '@/src/components/ThemedText';
 import { Button } from '@/src/components/ui/Button';
 import { StyleSheet } from 'react-native';
 import { ThemedView } from '@/src/components/ThemedView';
+import FoodList from './components/foodList/FoodList.component';
 
-interface FoodTableProps {
+interface FoodContentProps {
   mealFoodList: MealFood[];
   onRemoveMealFood: (food: MealFood) => void;
 }
 
-export default function FoodTable({
+export default function FoodContent({
   mealFoodList,
   onRemoveMealFood,
-}: FoodTableProps) {
+}: FoodContentProps) {
   const [foodToRemove, setFoodToRemove] = useState<MealFood | null>(null);
 
-  const handleRowPress = (foodMeal: MealFood) => {
+  const handleClickRemoveMealFood = (foodMeal: MealFood) => {
     setFoodToRemove(foodMeal);
   };
 
@@ -36,10 +35,9 @@ export default function FoodTable({
 
   return (
     <>
-      <DataTable
-        columns={columns}
-        data={mealFoodList}
-        onRowPress={handleRowPress}
+      <FoodList
+        mealFoodList={mealFoodList}
+        onRemoveMealFood={handleClickRemoveMealFood}
       />
       <Modal
         onClose={handleOnCloseModal}

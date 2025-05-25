@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Accordion } from '@/src/components/ui/Accordion';
-import { MealFood } from '../MealFood.vm';
 import { ThemedText } from '@/src/components/ThemedText';
 import { Button } from '@/src/components/ui/Button';
+import { MealFood } from '../../../MealFood.vm';
 
 interface FoodListProps {
   mealFoodList: MealFood[];

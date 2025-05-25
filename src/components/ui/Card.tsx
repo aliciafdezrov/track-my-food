@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Pressable, ViewStyle } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { ThemedView } from '../ThemedView';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from 'react-native';
 
 interface CardProps {
   title: string;
@@ -18,17 +20,33 @@ export const Card: React.FC<CardProps> = ({
   onPress,
   style,
 }) => {
+  const colorScheme = useColorScheme() ?? 'light';
+  const colors = Colors[colorScheme];
   const Container = onPress ? Pressable : View;
 
   return (
-    <Container style={[styles.container, style]} onPress={onPress}>
+    <Container
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.background,
+          borderColor: colors.border,
+          shadowColor: colors.text,
+        },
+        style,
+      ]}
+      onPress={onPress}
+    >
       <ThemedView style={styles.content}>
         <View style={styles.header}>
           <ThemedText type="defaultSemiBold" style={styles.title}>
             {title}
           </ThemedText>
           {subtitle && (
-            <ThemedText type="default" style={styles.subtitle}>
+            <ThemedText
+              type="default"
+              style={[styles.subtitle, { color: colors.textSecondary }]}
+            >
               {subtitle}
             </ThemedText>
           )}
@@ -45,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
     elevation: 2,
-    shadowColor: '#000',
+    borderWidth: 1,
     shadowOffset: {
       width: 0,
       height: 2,

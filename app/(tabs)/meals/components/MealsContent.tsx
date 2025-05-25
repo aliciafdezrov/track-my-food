@@ -3,12 +3,12 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Food } from '@/features/food/models/Food.model';
 import { MealFood } from '@/src/pods/meals/MealFood.vm';
-import FoodList from '@/src/pods/meals/foodList/FoodList.component';
 import { TextInput } from '@/src/components/ui/TextInput';
 import { Button } from '@/src/components/ui/Button';
 import { StyleSheet } from 'react-native';
 import AddFoodFormModal from '@/pods/meals/addFoodFormModal/AddFoodFormModal.component';
 import { ThemedView } from '@/src/components/ThemedView';
+import FoodContent from '@/pods/meals/foodContent/FoodContent.component';
 
 export function MealsContent() {
   const [foods, setFoods] = useState<Food[]>([]);
@@ -56,7 +56,7 @@ export function MealsContent() {
         inputStyle={styles.nameInput}
       />
       <AddFoodFormModal foods={foods} addSelectedFood={handleAddMealFood} />
-      <FoodList
+      <FoodContent
         mealFoodList={selectedFoods}
         onRemoveMealFood={handleRemoveMealFood}
       />

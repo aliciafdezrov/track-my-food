@@ -1,24 +1,28 @@
-import React from 'react';
 import {
-  TouchableOpacity,
-  Text,
   StyleSheet,
+  Pressable,
+  Text,
   ViewStyle,
   TextStyle,
 } from 'react-native';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from 'react-native';
+
+type ButtonVariant = 'primary' | 'secondary' | 'outline';
+type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonProps {
   onPress: () => void;
   title: string;
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'small' | 'medium' | 'large';
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   disabled?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
-  fullWidth?: boolean;
+  fitContent?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export function Button({
   onPress,
   title,
   variant = 'primary',
@@ -26,43 +30,75 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   style,
   textStyle,
-  fullWidth = false,
-}) => {
-  const getButtonStyle = () => {
-    const baseStyle = styles.button;
-    const variantStyle = styles[variant];
-    const sizeStyle = styles[size];
-    const disabledStyle = disabled ? styles.disabled : {};
-    const widthStyle = fullWidth ? {} : styles.fitContentWidth;
+  fitContent = true,
+}: ButtonProps) {
+  const colorScheme = useColorScheme() ?? 'light';
+  const colors = Colors[colorScheme];
 
-    return [baseStyle, variantStyle, sizeStyle, disabledStyle, widthStyle, style];
+  const getBackgroundColor = () => {
+    if (disabled) return colors.textSecondary;
+    switch (variant) {
+      case 'primary':
+        return colors.primary;
+      case 'secondary':
+        return colors.secondary;
+      case 'outline':
+        return 'transparent';
+      default:
+        return colors.primary;
+    }
   };
 
-  const getTextStyle = () => {
-    const baseTextStyle = styles.text;
-    const variantTextStyle = styles[`${variant}Text`];
-    const sizeTextStyle = styles[`${size}Text`];
-    const disabledTextStyle = disabled ? styles.disabledText : {};
+  const getTextColor = () => {
+    if (disabled) return colors.background;
+    switch (variant) {
+      case 'primary':
+      case 'secondary':
+        return colors.background;
+      case 'outline':
+        return colors.primary;
+      default:
+        return colors.background;
+    }
+  };
 
-    return [
-      baseTextStyle,
-      variantTextStyle,
-      sizeTextStyle,
-      disabledTextStyle,
-      textStyle,
-    ];
+  const getBorderColor = () => {
+    if (disabled) return colors.textSecondary;
+    return variant === 'outline' ? colors.primary : 'transparent';
   };
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={onPress}
       disabled={disabled}
-      style={getButtonStyle()}
+      style={[
+        styles.button,
+        styles[variant],
+        styles[size],
+        {
+          backgroundColor: getBackgroundColor(),
+          borderColor: getBorderColor(),
+        },
+        disabled && styles.disabled,
+        fitContent && styles.fitContentWidth,
+        style,
+      ]}
     >
-      <Text style={getTextStyle()}>{title}</Text>
-    </TouchableOpacity>
+      <Text
+        style={[
+          styles.text,
+          styles[`${variant}Text`],
+          styles[`${size}Text`],
+          { color: getTextColor() },
+          disabled && styles.disabledText,
+          textStyle,
+        ]}
+      >
+        {title}
+      </Text>
+    </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   button: {
@@ -70,16 +106,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  primary: {
-    backgroundColor: '#007AFF',
-  },
-  secondary: {
-    backgroundColor: '#5856D6',
-  },
+  primary: {},
+  secondary: {},
   outline: {
-    backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#007AFF',
   },
   small: {
     paddingVertical: 8,
@@ -99,15 +129,9 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '600',
   },
-  primaryText: {
-    color: '#FFFFFF',
-  },
-  secondaryText: {
-    color: '#FFFFFF',
-  },
-  outlineText: {
-    color: '#007AFF',
-  },
+  primaryText: {},
+  secondaryText: {},
+  outlineText: {},
   smallText: {
     fontSize: 14,
   },
@@ -117,10 +141,8 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 18,
   },
-  disabledText: {
-    color: '#999999',
-  },
+  disabledText: {},
   fitContentWidth: {
-    alignSelf: 'flex-start'
-  }
+    alignSelf: 'flex-start',
+  },
 });
