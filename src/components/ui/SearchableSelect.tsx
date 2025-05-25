@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   TextInput,
@@ -40,6 +40,13 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
+  const searchInputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      searchInputRef.current?.focus();
+    }
+  }, [isOpen]);
 
   const selectedOption = options.find((opt) => opt.value === value);
   const filteredOptions = options.filter((opt) =>
@@ -67,6 +74,7 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
       {isOpen && (
         <View style={styles.dropdown}>
           <TextInput
+            ref={searchInputRef}
             style={styles.searchInput}
             value={searchText}
             onChangeText={setSearchText}
