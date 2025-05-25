@@ -9,7 +9,7 @@ import { getFoods } from '@/src/services/Database';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import AddFoodForm from '@/components/AddFoodForm';
+import AddFoodForm from '@/components/addFoodForm/AddFoodForm.component';
 import { Food } from '@/models/Food.model';
 
 export default function MealsScreen() {
