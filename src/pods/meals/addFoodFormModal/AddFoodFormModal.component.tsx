@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { Form } from '@/components/ui/Form';
-import { calculateFoodValues } from './AddFoodForm.helper';
+import { calculateFoodValues } from './AddFoodFormModal.helper';
 import { MealFood } from '../MealFood.vm';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Food } from '@/src/features/food/models/Food.model';
 
-interface AddFoodFormProps {
+interface AddFoodFormModalProps {
   addSelectedFood: (mealFood: MealFood) => void;
   foods: Food[];
 }
 
-export default function AddFoodForm({
+export default function AddFoodFormModal({
   foods,
   addSelectedFood,
-}: AddFoodFormProps) {
+}: AddFoodFormModalProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSubmit = (data: { food: string; quantity: number }) => {

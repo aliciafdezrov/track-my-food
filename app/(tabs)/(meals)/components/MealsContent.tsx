@@ -1,13 +1,13 @@
 import { getFoods } from '@/features/food/services/Database';
 import { useState, useEffect, useMemo } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import AddFoodForm from '@/pods/meals/addFoodForm/AddFoodForm.component';
 import { Food } from '@/features/food/models/Food.model';
 import { MealFood } from '@/src/pods/meals/MealFood.vm';
 import FoodTable from '@/src/pods/meals/foodTable/FoodTable.component';
 import { TextInput } from '@/src/components/ui/TextInput';
 import { Button } from '@/src/components/ui/Button';
 import { StyleSheet } from 'react-native';
+import AddFoodFormModal from '@/pods/meals/addFoodFormModal/AddFoodFormModal.component';
 
 export function MealsContent() {
   const [foods, setFoods] = useState<Food[]>([]);
@@ -47,7 +47,7 @@ export function MealsContent() {
         value={mealName}
         onChangeText={handleChangeName}
       />
-      <AddFoodForm foods={foods} addSelectedFood={handleAddMealFood} />
+      <AddFoodFormModal foods={foods} addSelectedFood={handleAddMealFood} />
       <FoodTable mealFoodList={selectedFoods} />
       <Button
         variant="primary"
