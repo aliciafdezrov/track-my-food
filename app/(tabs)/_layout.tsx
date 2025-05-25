@@ -1,48 +1,26 @@
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import BlurTabBarBackground from '@/components/ui/TabBarBackground.ios';
-import { Colors } from '@/constants/Colors';
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform, useColorScheme } from 'react-native';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+import { Drawer } from 'expo-router/drawer';
+import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+export default function NavigationLayout() {
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: BlurTabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}
-    >
-      <Tabs.Screen
-        name="(meals)"
-        options={{
-          title: 'Meals',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="(summary)"
-        options={{
-          title: 'Summary',
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer>
+        <Drawer.Screen
+          name="(meals)"
+          options={{
+            title: 'Meals',
+          }}
+        />
+        <Drawer.Screen
+          name="(summary)"
+          options={{
+            title: 'Summary',
+          }}
+        />
+      </Drawer>
+    </GestureHandlerRootView>
   );
 }
