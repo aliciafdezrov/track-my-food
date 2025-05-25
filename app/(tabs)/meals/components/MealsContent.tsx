@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import { Food } from '@/features/food/models/Food.model';
 import { MealFood } from '@/src/pods/meals/MealFood.vm';
-import FoodTable from '@/src/pods/meals/foodTable/FoodTable.component';
+import FoodList from '@/src/pods/meals/foodList/FoodList.component';
 import { TextInput } from '@/src/components/ui/TextInput';
 import { Button } from '@/src/components/ui/Button';
 import { StyleSheet } from 'react-native';
@@ -48,30 +48,39 @@ export function MealsContent() {
   };
 
   return (
-    <>
+    <ThemedView style={styles.container}>
       <TextInput
-        label="Nombre comida"
+        placeholder="Añadir comida"
         value={mealName}
         onChangeText={handleChangeName}
+        inputStyle={styles.nameInput}
       />
       <AddFoodFormModal foods={foods} addSelectedFood={handleAddMealFood} />
-      <FoodTable
+      <FoodList
         mealFoodList={selectedFoods}
         onRemoveMealFood={handleRemoveMealFood}
       />
       <Button
         variant="primary"
-        size="large"
+        size="medium"
         title="Guardar"
         onPress={onSave}
         style={styles.button}
         disabled={disableSaveButton}
       />
-    </>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    gap: 16,
+  },
+  nameInput: {
+    backgroundColor: 'inherit',
+    borderColor: 'transparent',
+  },
   button: {
     alignSelf: 'flex-end',
   },

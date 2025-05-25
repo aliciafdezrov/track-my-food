@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
-    minHeight: 200,
+    minHeight: 500,
   },
   header: {
     flexDirection: 'row',

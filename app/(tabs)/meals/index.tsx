@@ -1,7 +1,6 @@
 import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { MealsHeader } from './components/MealsHeader';
 import { MealsContent } from './components/MealsContent';
 import { useColorScheme } from '@/src/hooks/useColorScheme.web';
 
@@ -21,7 +20,6 @@ export default function MealsScreen() {
         />
       }
     >
-      <MealsHeader />
       <MealsContent />
     </ParallaxScrollView>
   );
