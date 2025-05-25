@@ -15,6 +15,7 @@ interface ButtonProps {
   disabled?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  fullWidth?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -25,14 +26,16 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   style,
   textStyle,
+  fullWidth = false,
 }) => {
   const getButtonStyle = () => {
     const baseStyle = styles.button;
     const variantStyle = styles[variant];
     const sizeStyle = styles[size];
     const disabledStyle = disabled ? styles.disabled : {};
+    const widthStyle = fullWidth ? {} : styles.fitContentWidth;
 
-    return [baseStyle, variantStyle, sizeStyle, disabledStyle, style];
+    return [baseStyle, variantStyle, sizeStyle, disabledStyle, widthStyle, style];
   };
 
   const getTextStyle = () => {
@@ -117,4 +120,7 @@ const styles = StyleSheet.create({
   disabledText: {
     color: '#999999',
   },
+  fitContentWidth: {
+    alignSelf: 'flex-start'
+  }
 });
