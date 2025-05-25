@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from '@/components/ui/Form';
 import { calculateFoodValues } from './AddFoodFormModal.helper';
 import { MealFood } from '../MealFood.vm';
@@ -17,8 +17,8 @@ export default function AddFoodFormModal({
 }: AddFoodFormModalProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleSubmit = (data: { food: string; quantity: number }) => {
-    const { quantity } = data;
+  const handleSubmit = (data: Record<string, string>) => {
+    const quantity = parseFloat(data.quantity);
     const selectedFood: Food | undefined = foods.find(
       (food: any) => food.id === data.food,
     );
@@ -28,7 +28,7 @@ export default function AddFoodFormModal({
 
       addSelectedFood({
         ...selectedFood,
-        quantity: data.quantity,
+        quantity,
         kcal: calculateFoodValues(kcal, portion, quantity),
         protein: calculateFoodValues(protein, portion, quantity),
         carbs: calculateFoodValues(carbs, portion, quantity),
