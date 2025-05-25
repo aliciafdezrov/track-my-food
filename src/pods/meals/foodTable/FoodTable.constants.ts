@@ -1,5 +1,5 @@
-import { Column } from "@/components/ui/DataTable";
-import { MealFood } from "./AddFoodForm.model";
+import { Column } from '@/components/ui/DataTable';
+import { MealFood } from '../MealFood.vm';
 
 export const columns: Column<MealFood>[] = [
   {
