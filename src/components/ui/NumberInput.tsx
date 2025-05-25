@@ -7,6 +7,7 @@ import {
   TextStyle,
   ViewStyle,
 } from 'react-native';
+import { ThemedText } from '../ThemedText';
 
 interface NumberInputProps {
   value: string;
@@ -51,7 +52,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 
   return (
     <View style={[styles.container, style]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <ThemedText style={styles.label}>{label}</ThemedText>}
       <TextInput
         style={[styles.input, inputStyle, error && styles.inputError]}
         value={value}
@@ -59,7 +60,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
         placeholder={placeholder}
         keyboardType="numeric"
       />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
     </View>
   );
 };
@@ -71,7 +72,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 8,
-    color: '#000000',
   },
   input: {
     borderWidth: 1,

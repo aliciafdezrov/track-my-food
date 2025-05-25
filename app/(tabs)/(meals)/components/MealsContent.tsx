@@ -8,6 +8,7 @@ import { TextInput } from '@/src/components/ui/TextInput';
 import { Button } from '@/src/components/ui/Button';
 import { StyleSheet } from 'react-native';
 import AddFoodFormModal from '@/pods/meals/addFoodFormModal/AddFoodFormModal.component';
+import { ThemedView } from '@/src/components/ThemedView';
 
 export function MealsContent() {
   const [foods, setFoods] = useState<Food[]>([]);

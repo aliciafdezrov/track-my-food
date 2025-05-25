@@ -1,17 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export function MealsHeader() {
   return (
-    <>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Meals!!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedText type="subtitle">Para añadir todas las comidas</ThemedText>
-    </>
+    <ThemedView style={styles.titleContainer}>
+      <ThemedText type="subtitle">Añadir comida</ThemedText>
+    </ThemedView>
   );
 }
 

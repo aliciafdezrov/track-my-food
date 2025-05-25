@@ -9,6 +9,8 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
+import { ThemedText } from '../ThemedText';
+import { ThemedView } from '../ThemedView';
 
 interface Option {
   label: string;
@@ -60,15 +62,15 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
   };
 
   return (
-    <View style={[styles.container, style]}>
-      {label && <Text style={styles.label}>{label}</Text>}
+    <ThemedView style={[styles.container, style]}>
+      {label && <ThemedText style={styles.label}>{label}</ThemedText>}
       <TouchableOpacity
         style={[styles.input, inputStyle, error && styles.inputError]}
         onPress={() => setIsOpen(!isOpen)}
       >
-        <Text style={[styles.selectedText, textStyle]}>
+        <ThemedText style={[styles.selectedText, textStyle]}>
           {selectedOption ? selectedOption.label : placeholder}
-        </Text>
+        </ThemedText>
       </TouchableOpacity>
 
       {isOpen && (
@@ -89,15 +91,15 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
                 style={styles.option}
                 onPress={() => handleSelect(item)}
               >
-                <Text style={styles.optionText}>{item.label}</Text>
+                <ThemedText style={styles.optionText}>{item.label}</ThemedText>
               </TouchableOpacity>
             )}
           />
         </View>
       )}
 
-      {error && <Text style={styles.errorText}>{error}</Text>}
-    </View>
+      {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
+    </ThemedView>
   );
 };
 
@@ -109,7 +111,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     marginBottom: 8,
-    color: '#000000',
   },
   input: {
     borderWidth: 1,
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   dropdown: {
-    position: 'sticky',
+    position: 'absolute',
     top: '100%',
     left: 0,
     right: 0,

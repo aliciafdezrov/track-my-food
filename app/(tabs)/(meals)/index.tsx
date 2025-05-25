@@ -3,14 +3,20 @@ import { StyleSheet } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { MealsHeader } from './components/MealsHeader';
 import { MealsContent } from './components/MealsContent';
+import { useColorScheme } from '@/src/hooks/useColorScheme.web';
 
 export default function MealsScreen() {
+  const colorScheme = useColorScheme();
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={
+            colorScheme === 'dark'
+              ? require('@/assets/images/food3.jpg')
+              : require('@/assets/images/food2.jpg')
+          }
           style={styles.reactLogo}
         />
       }
@@ -23,10 +29,6 @@ export default function MealsScreen() {
 
 const styles = StyleSheet.create({
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+    height: '100%',
   },
 });
