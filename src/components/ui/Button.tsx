@@ -72,7 +72,7 @@ export function Button({
     if (disabled) return colors.textSecondary;
     switch (variant) {
       case 'default':
-        return colors.text;
+        return colors.textSecondary;
       case 'outline':
         return colors.primary;
       default:
