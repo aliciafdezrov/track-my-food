@@ -1,15 +1,12 @@
 import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { getFoods } from '@/src/services/Database';
-import { useState , useEffect } from 'react';
+import { getFoods } from '@/features/food/services/Database';
+import { useState, useEffect } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
 import AddFoodForm from '@/components/addFoodForm/AddFoodForm.component';
-import { Food } from '@/models/Food.model';
+import { Food } from '@/features/food/models/Food.model';
+import { MealsHeader } from './components/MealsHeader';
 
 export default function MealsScreen() {
   const [foods, setFoods] = useState<Food[]>([]);
@@ -34,22 +31,13 @@ export default function MealsScreen() {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Meals!!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedText type="subtitle">Para añadir todas las comidas</ThemedText>
-     <AddFoodForm foods={foods} onSubmit={() => {}}/>
+      <MealsHeader />
+      <AddFoodForm foods={foods} onSubmit={() => {}} />
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
   reactLogo: {
     height: 178,
     width: 290,

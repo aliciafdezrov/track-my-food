@@ -1,10 +1,7 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
+import { StyleSheet } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { SummaryHeader } from './components/SummaryHeader';
 
 export default function SummaryScreen() {
   return (
@@ -15,22 +12,14 @@ export default function SummaryScreen() {
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Summary</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedText type="subtitle">Resumen diario/semanal/mensual...</ThemedText>
+      }
+    >
+      <SummaryHeader />
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
   reactLogo: {
     height: 178,
     width: 290,
