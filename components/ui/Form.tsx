@@ -62,6 +62,11 @@ export const Form: React.FC<FormProps> = ({
     return undefined;
   };
 
+  const handleResetForm = () => {
+    setErrors({});
+    setValues({});
+  }
+
   const handleSubmit = () => {
     const newErrors: Record<string, string> = {};
     let hasErrors = false;
@@ -78,6 +83,7 @@ export const Form: React.FC<FormProps> = ({
 
     if (!hasErrors) {
       onSubmit(values);
+      handleResetForm();
     }
   };
 
