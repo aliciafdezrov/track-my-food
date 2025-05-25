@@ -40,6 +40,12 @@ export function MealsContent() {
     console.log('save');
   };
 
+  const handleRemoveMealFood = (mealFood: MealFood) => {
+    setSelectedFoods((prevFoods) =>
+      prevFoods.filter((food) => food.id !== mealFood.id),
+    );
+  };
+
   return (
     <>
       <TextInput
@@ -48,7 +54,10 @@ export function MealsContent() {
         onChangeText={handleChangeName}
       />
       <AddFoodFormModal foods={foods} addSelectedFood={handleAddMealFood} />
-      <FoodTable mealFoodList={selectedFoods} />
+      <FoodTable
+        mealFoodList={selectedFoods}
+        onRemoveMealFood={handleRemoveMealFood}
+      />
       <Button
         variant="primary"
         size="large"
