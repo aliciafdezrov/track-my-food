@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { SummaryHeader } from './components/SummaryHeader';
+import { SummaryContent } from './components/SummaryContent';
 
 export default function SummaryScreen() {
   return (
@@ -15,6 +16,7 @@ export default function SummaryScreen() {
       }
     >
       <SummaryHeader />
+      <SummaryContent />
     </ParallaxScrollView>
   );
 }
