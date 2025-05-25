@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, StyleSheet, ViewStyle, TextStyle, Text } from 'react-native';
 import { Button } from './Button';
 import { NumberInput } from './NumberInput';
@@ -65,22 +65,13 @@ export const Form: React.FC<FormProps> = ({
   const handleResetForm = () => {
     setErrors({});
     setValues({});
-  }
+  };
+
+  const hasErrors = useMemo(() => {
+    return fields.some((field) => validateField(field, values[field.name] || ''));
+  }, [fields, values]);
 
   const handleSubmit = () => {
-    const newErrors: Record<string, string> = {};
-    let hasErrors = false;
-
-    fields.forEach((field) => {
-      const error = validateField(field, values[field.name] || '');
-      if (error) {
-        newErrors[field.name] = error;
-        hasErrors = true;
-      }
-    });
-
-    setErrors(newErrors);
-
     if (!hasErrors) {
       onSubmit(values);
       handleResetForm();
@@ -143,6 +134,7 @@ export const Form: React.FC<FormProps> = ({
         onPress={handleSubmit}
         variant="primary"
         size="medium"
+        disabled={hasErrors}
       />
     </View>
   );
