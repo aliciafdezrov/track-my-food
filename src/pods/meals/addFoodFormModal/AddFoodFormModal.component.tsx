@@ -56,7 +56,7 @@ export default function AddFoodFormModal({
               name: 'food',
               label: 'Alimento',
               options: foods.map((food) => ({
-                label: `${food.name} (${food.portion}g)`,
+                label: `${food.name} (${food.portion}${food.unit})`,
                 value: food.id,
               })),
               required: true,

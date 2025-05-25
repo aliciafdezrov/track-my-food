@@ -8,7 +8,8 @@ export const schema = [
     fat REAL DEFAULT 0,
     carbs REAL DEFAULT 0,
     portion REAL DEFAULT 100,
-    notes TEXT
+    notes TEXT,
+    unit TEXT DEFAULT 'g'
   );`,
 
   `CREATE TABLE IF NOT EXISTS meals (
@@ -24,9 +25,9 @@ export const schema = [
 
   // INSERT INTO FOODS TABLE
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (1, 'Huevo', 155, 12.6);`,
-  `INSERT OR IGNORE INTO foods (id, name, kcal) VALUES (2, 'Aceite', 900);`,
+  `INSERT OR IGNORE INTO foods (id, name, kcal, unit) VALUES (2, 'Aceite', 900, 'ml');`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (3, 'Pollo', 106, 31);`,
-  `INSERT OR IGNORE INTO foods (id, name, kcal) VALUES (4, 'Vinagre modena', 123);`,
+  `INSERT OR IGNORE INTO foods (id, name, kcal, unit) VALUES (4, 'Vinagre modena', 123, 'ml');`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein, portion, notes) VALUES (5, 'Tortitas jamon', 146, 3.8, 35, '4 tortitas');`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein, fat, carbs) VALUES (6, 'Queso havarti light', 267, 27, 17, 1.6);`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (7, 'Cebolla dulce', 40, 1.1);`,
@@ -47,7 +48,7 @@ export const schema = [
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (22, 'Lechuga', 15, 1.4);`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (23, 'Tomate cherry', 33, 0.9);`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (24, 'Mostaza', 75, 3.8);`,
-  `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (25, 'Leche', 35, 3.2);`,
+  `INSERT OR IGNORE INTO foods (id, name, kcal, protein, unit) VALUES (25, 'Leche', 35, 3.2, 'ml');`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (26, 'Patata', 77, 2);`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (27, 'Queso cottage', 99, 12);`,
   `INSERT OR IGNORE INTO foods (id, name, kcal, protein) VALUES (28, 'Merluza', 73, 18);`,

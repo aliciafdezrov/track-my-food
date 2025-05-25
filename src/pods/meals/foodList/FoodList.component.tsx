@@ -20,7 +20,7 @@ export default function FoodList({
         <Accordion
           key={food.id}
           title={food.name}
-          subtitle={`${food.quantity}g`}
+          subtitle={`${food.quantity}${food.unit}`}
         >
           <View style={styles.nutritionInfo}>
             <View style={styles.nutritionItem}>

@@ -7,4 +7,5 @@ export interface Food {
   fat: number;
   portion: number;
   notes: string;
+  unit: string;
 }

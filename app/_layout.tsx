@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import { Text } from 'react-native';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Suspense } from 'react';
@@ -26,7 +27,11 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Suspense fallback={<h1>Fallback</h1>}>
+      <Suspense
+        fallback={
+          <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Fallback</Text>
+        }
+      >
         <SQLiteProvider
           databaseName="diary.db"
           onInit={initDatabase}
