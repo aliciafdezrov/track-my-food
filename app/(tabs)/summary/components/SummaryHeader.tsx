@@ -1,18 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { HelloWave } from '@/components/HelloWave';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React from 'react';
 
 export function SummaryHeader() {
   return (
-    <>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Summary</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedText type="subtitle">Resumen diario/semanal/mensual...</ThemedText>
-    </>
+    <ThemedView style={styles.titleContainer}>
+      <ThemedText type="title">Resumen</ThemedText>
+    </ThemedView>
   );
 }
 
