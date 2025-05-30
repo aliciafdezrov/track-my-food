@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
 import { Form } from '@/components/ui/Form';
-import { calculateFoodValues } from './AddFoodFormModal.helper';
-import { MealFood } from '../MealFood.vm';
+import { calculateFoodValues } from './AddIngredientFormModal.helper';
+import { MealIngredient } from '../MealIngredient.vm';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
-import { Food } from '@/src/features/food/models/Food.model';
+import { Ingredient } from '@/src/features/ingredient/models/Ingredient.model';
 import { Keyboard } from 'react-native';
 
-interface AddFoodFormModalProps {
-  addSelectedFood: (mealFood: MealFood) => void;
-  foods: Food[];
+interface AddIngredientFormModalProps {
+  addIngredient: (mealFood: MealIngredient) => void;
+  ingredients: Ingredient[];
 }
 
-export default function AddFoodFormModal({
-  foods,
-  addSelectedFood,
-}: AddFoodFormModalProps) {
+export default function AddIngredientFormModal({
+  ingredients,
+  addIngredient,
+}: AddIngredientFormModalProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSubmit = (data: Record<string, string>) => {
     const quantity = parseFloat(data.quantity);
-    const selectedFood: Food | undefined = foods.find(
+    const selectedIngredient: Ingredient | undefined = ingredients.find(
       (food: any) => food.id === data.food,
     );
 
-    if (selectedFood) {
-      const { kcal, protein, carbs, fat, portion } = selectedFood;
+    if (selectedIngredient) {
+      const { kcal, protein, carbs, fat, portion } = selectedIngredient;
 
-      addSelectedFood({
-        ...selectedFood,
+      addIngredient({
+        ...selectedIngredient,
         quantity,
         kcal: calculateFoodValues(kcal, portion, quantity),
         protein: calculateFoodValues(protein, portion, quantity),
@@ -55,11 +55,11 @@ export default function AddFoodFormModal({
           fields={[
             {
               type: 'select',
-              name: 'food',
-              label: 'Alimento',
-              options: foods.map((food) => ({
-                label: `${food.name} (${food.portion}${food.unit})`,
-                value: food.id,
+              name: 'ingredient',
+              label: 'Ingrediente',
+              options: ingredients.map((ingredient) => ({
+                label: `${ingredient.name} (${ingredient.portion}${ingredient.unit})`,
+                value: ingredient.id,
               })),
               required: true,
             },

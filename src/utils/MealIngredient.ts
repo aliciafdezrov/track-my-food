@@ -1,9 +1,9 @@
 import { UnsavedMeal } from '../features/meal/models/Meal.model';
-import { MealFood } from '../pods/meals/MealFood.vm';
+import { MealIngredient } from '../pods/meals/MealIngredient.vm';
 
 export function getMealFromMealFoodList(
   mealName: string,
-  mealFoodList: MealFood[],
+  mealFoodList: MealIngredient[],
   notes: string = '',
 ): UnsavedMeal {
   const meal: UnsavedMeal = {

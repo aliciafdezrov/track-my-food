@@ -1,52 +1,55 @@
-import { MealFood } from '../MealFood.vm';
+import { MealIngredient } from '../MealIngredient.vm';
 import { Modal } from '@/src/components/ui/Modal';
 import React, { useState } from 'react';
 import { ThemedText } from '@/src/components/ThemedText';
 import { Button } from '@/src/components/ui/Button';
 import { StyleSheet } from 'react-native';
 import { ThemedView } from '@/src/components/ThemedView';
-import FoodList from './components/foodList/FoodList.component';
+import IngredientList from './components/ingredientList/IngredientList.component';
 
-interface FoodContentProps {
-  mealFoodList: MealFood[];
-  onRemoveMealFood: (food: MealFood) => void;
+interface IngredientContentProps {
+  mealIngredientList: MealIngredient[];
+  onRemoveMealIngredient: (ingredient: MealIngredient) => void;
 }
 
-export default function FoodContent({
-  mealFoodList,
-  onRemoveMealFood,
-}: FoodContentProps) {
-  const [foodToRemove, setFoodToRemove] = useState<MealFood | null>(null);
+export default function IngredientContent({
+  mealIngredientList,
+  onRemoveMealIngredient,
+}: IngredientContentProps) {
+  const [ingredientToRemove, setIngredientToRemove] =
+    useState<MealIngredient | null>(null);
 
-  const handleClickRemoveMealFood = (foodMeal: MealFood) => {
-    setFoodToRemove(foodMeal);
+  const handleClickRemoveMealIngredient = (mealIngredient: MealIngredient) => {
+    setIngredientToRemove(mealIngredient);
   };
 
   const handleOnCloseModal = () => {
-    setFoodToRemove(null);
+    setIngredientToRemove(null);
   };
 
   const handleOnDelete = () => {
-    if (foodToRemove) {
-      onRemoveMealFood(foodToRemove);
+    if (ingredientToRemove) {
+      onRemoveMealIngredient(ingredientToRemove);
     }
     handleOnCloseModal();
   };
 
   return (
     <>
-      <FoodList
-        mealFoodList={mealFoodList}
-        onRemoveMealFood={handleClickRemoveMealFood}
+      <IngredientList
+        mealIngredientList={mealIngredientList}
+        onRemoveMealIngredient={handleClickRemoveMealIngredient}
       />
       <Modal
         onClose={handleOnCloseModal}
-        visible={foodToRemove !== null}
+        visible={ingredientToRemove !== null}
         title="Eliminar ingrediente"
       >
         <ThemedText type="default">
           Eliminar el ingrediente:
-          <ThemedText type="defaultSemiBold">{foodToRemove?.name}</ThemedText>{' '}
+          <ThemedText type="defaultSemiBold">
+            {ingredientToRemove?.name}
+          </ThemedText>{' '}
           de esta comida
         </ThemedText>
 

@@ -3,24 +3,24 @@ import { View, StyleSheet } from 'react-native';
 import { Accordion } from '@/src/components/ui/Accordion';
 import { ThemedText } from '@/src/components/ThemedText';
 import { Button } from '@/src/components/ui/Button';
-import { MealFood } from '../../../MealFood.vm';
+import { MealIngredient } from '../../../MealIngredient.vm';
 
-interface FoodListProps {
-  mealFoodList: MealFood[];
-  onRemoveMealFood: (food: MealFood) => void;
+interface IngredientListProps {
+  mealIngredientList: MealIngredient[];
+  onRemoveMealIngredient: (ingredient: MealIngredient) => void;
 }
 
-export default function FoodList({
-  mealFoodList,
-  onRemoveMealFood,
-}: FoodListProps) {
+export default function IngredientList({
+  mealIngredientList,
+  onRemoveMealIngredient,
+}: IngredientListProps) {
   return (
     <View style={styles.container}>
-      {mealFoodList.map((food) => (
+      {mealIngredientList.map((ingredient) => (
         <Accordion
-          key={food.id}
-          title={food.name}
-          subtitle={`${food.quantity}${food.unit}`}
+          key={ingredient.id}
+          title={ingredient.name}
+          subtitle={`${ingredient.quantity}${ingredient.unit}`}
         >
           <View style={styles.nutritionInfo}>
             <View style={styles.nutritionItem}>
@@ -28,7 +28,7 @@ export default function FoodList({
                 Calorías
               </ThemedText>
               <ThemedText type="defaultSemiBold">
-                {Math.round(food.kcal)} kcal
+                {Math.round(ingredient.kcal)} kcal
               </ThemedText>
             </View>
             <View style={styles.nutritionItem}>
@@ -36,7 +36,7 @@ export default function FoodList({
                 Proteínas
               </ThemedText>
               <ThemedText type="defaultSemiBold">
-                {Math.round(food.protein)}g
+                {Math.round(ingredient.protein)}g
               </ThemedText>
             </View>
             <View style={styles.nutritionItem}>
@@ -44,7 +44,7 @@ export default function FoodList({
                 Carbos
               </ThemedText>
               <ThemedText type="defaultSemiBold">
-                {Math.round(food.carbs)}g
+                {Math.round(ingredient.carbs)}g
               </ThemedText>
             </View>
             <View style={styles.nutritionItem}>
@@ -52,7 +52,7 @@ export default function FoodList({
                 Grasas
               </ThemedText>
               <ThemedText type="defaultSemiBold">
-                {Math.round(food.fat)}g
+                {Math.round(ingredient.fat)}g
               </ThemedText>
             </View>
           </View>
@@ -60,7 +60,7 @@ export default function FoodList({
             variant="danger"
             size="small"
             title="Eliminar"
-            onPress={() => onRemoveMealFood(food)}
+            onPress={() => onRemoveMealIngredient(ingredient)}
             style={styles.removeButton}
           />
         </Accordion>

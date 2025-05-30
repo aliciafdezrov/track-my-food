@@ -1,6 +1,6 @@
-import { MealFood } from "@/pods/meals/MealFood.vm";
+import { MealIngredient } from '@/src/pods/meals/MealIngredient.vm';
 
-export const calculateIngredientTotal = (ingredients: MealFood[]) => {
+export const calculateIngredientTotal = (ingredients: MealIngredient[]) => {
   return {
     kcal: ingredients.reduce((acc, food) => acc + food.kcal, 0),
     protein: ingredients.reduce((acc, food) => acc + food.protein, 0),
