@@ -24,7 +24,7 @@ export default function FoodList({
         >
           <View style={styles.nutritionInfo}>
             <View style={styles.nutritionItem}>
-              <ThemedText type="default" style={styles.nutritionLabel}>
+              <ThemedText type="label" style={styles.nutritionLabel}>
                 Calorías
               </ThemedText>
               <ThemedText type="defaultSemiBold">
@@ -32,7 +32,7 @@ export default function FoodList({
               </ThemedText>
             </View>
             <View style={styles.nutritionItem}>
-              <ThemedText type="default" style={styles.nutritionLabel}>
+              <ThemedText type="label" style={styles.nutritionLabel}>
                 Proteínas
               </ThemedText>
               <ThemedText type="defaultSemiBold">
@@ -40,7 +40,7 @@ export default function FoodList({
               </ThemedText>
             </View>
             <View style={styles.nutritionItem}>
-              <ThemedText type="default" style={styles.nutritionLabel}>
+              <ThemedText type="label" style={styles.nutritionLabel}>
                 Carbos
               </ThemedText>
               <ThemedText type="defaultSemiBold">
@@ -48,7 +48,7 @@ export default function FoodList({
               </ThemedText>
             </View>
             <View style={styles.nutritionItem}>
-              <ThemedText type="default" style={styles.nutritionLabel}>
+              <ThemedText type="label" style={styles.nutritionLabel}>
                 Grasas
               </ThemedText>
               <ThemedText type="defaultSemiBold">
@@ -85,8 +85,6 @@ const styles = StyleSheet.create({
     minWidth: '45%',
   },
   nutritionLabel: {
-    fontSize: 12,
-    opacity: 0.7,
     marginBottom: 2,
   },
   removeButton: {
