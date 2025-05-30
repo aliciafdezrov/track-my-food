@@ -20,6 +20,13 @@ export default function NavigationLayout() {
             drawerLabel: 'Resumen',
           }}
         />
+        <Drawer.Screen
+          name="ingredients/index"
+          options={{
+            title: 'Ingredientes',
+            drawerLabel: 'Ingredientes',
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );
