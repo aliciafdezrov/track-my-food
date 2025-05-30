@@ -2,7 +2,7 @@ import { MealIngredient } from '@/src/pods/meals/MealIngredient.vm';
 import { StyleSheet } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/src/components/ThemedText';
-import { calculateIngredientTotal } from './Total.helper';
+import { calculateIngredientTotal } from '@/src/utils/MealIngredient';
 
 interface TotalProps {
   ingredients: MealIngredient[];
