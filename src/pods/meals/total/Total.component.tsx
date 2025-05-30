@@ -29,7 +29,7 @@ export function Total({ ingredients }: TotalProps) {
 
         {column('Grasas', fat)}
 
-        {column('Carbohidratos', carbs)}
+        {column('Carbos', carbs)}
       </ThemedView>
     </ThemedView>
   );
