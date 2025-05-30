@@ -5,7 +5,7 @@ import { Food } from '@/features/food/models/Food.model';
 import { MealFood } from '@/pods/meals/MealFood.vm';
 import { TextInput } from '@/components/ui/TextInput';
 import { Button } from '@/components/ui/Button';
-import { StyleSheet } from 'react-native';
+import { Keyboard, StyleSheet } from 'react-native';
 import AddFoodFormModal from '@/pods/meals/addFoodFormModal/AddFoodFormModal.component';
 import { ThemedView } from '@/components/ThemedView';
 import FoodContent from '@/pods/meals/foodContent/FoodContent.component';
@@ -52,6 +52,11 @@ export function MealsContent() {
     );
   };
 
+  const handleClear = () => {
+    setSelectedFoods([]);
+    setMealName('');
+  };
+
   return (
     <ThemedView style={styles.container}>
       <TextInput
@@ -65,14 +70,23 @@ export function MealsContent() {
         mealFoodList={selectedFoods}
         onRemoveMealFood={handleRemoveMealFood}
       />
-      <Button
-        variant="primary"
-        size="medium"
-        title="Guardar"
-        onPress={onSave}
-        style={styles.button}
-        disabled={disableSaveButton}
-      />
+      <ThemedView style={styles.footerContainer}>
+        <Button
+          variant="outline"
+          size="medium"
+          title="Borrar todo"
+          onPress={handleClear}
+          style={styles.button}
+        />
+        <Button
+          variant="primary"
+          size="medium"
+          title="Guardar"
+          onPress={onSave}
+          style={styles.button}
+          disabled={disableSaveButton}
+        />
+      </ThemedView>
     </ThemedView>
   );
 }
@@ -89,5 +103,11 @@ const styles = StyleSheet.create({
   button: {
     alignSelf: 'flex-end',
     marginBottom: 32,
+  },
+  footerContainer: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    gap: 8,
+    marginTop: 16,
   },
 });
