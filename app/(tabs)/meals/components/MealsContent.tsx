@@ -8,10 +8,10 @@ import { Button } from '@/components/ui/Button';
 import { StyleSheet } from 'react-native';
 import AddIngredientFormModal from '@/src/pods/meals/addIngredientFormModal/AddIngredientFormModal.component';
 import { ThemedView } from '@/components/ThemedView';
-import IngredientContent from '@/src/pods/meals/ingredientContent/IngredientContent.component';
 import { getMealFromMealFoodList } from '@/src/utils/MealIngredient';
 import { addMeal } from '@/features/meal/services/Database';
 import { Total } from '@/src/pods/meals/total/Total.component';
+import IngredientContent from '@/src/pods/meals/ingredientContent/IngredientContent.component';
 
 export function MealsContent() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -31,7 +31,7 @@ export function MealsContent() {
   }, []);
 
   const handleAddMealIngredient = (mealIngredient: MealIngredient) => {
-    setSelectedIngredients((prevFoods) => [...prevFoods, mealIngredient]);
+    setSelectedIngredients((prevIngredients) => [...prevIngredients, mealIngredient]);
   };
 
   const handleChangeName = (name: string) => {
@@ -50,8 +50,8 @@ export function MealsContent() {
   };
 
   const handleRemoveMealIngredient = (mealIngredient: MealIngredient) => {
-    setSelectedIngredients((prevFoods) =>
-      prevFoods.filter((food) => food.id !== mealIngredient.id),
+    setSelectedIngredients((prevIngredients) =>
+      prevIngredients.filter((ingredient) => ingredient.id !== mealIngredient.id),
     );
   };
 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Form } from '@/components/ui/Form';
 import { calculateFoodValues } from './AddIngredientFormModal.helper';
-import { MealIngredient } from '../MealIngredient.vm';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Ingredient } from '@/src/features/ingredient/models/Ingredient.model';
 import { Keyboard } from 'react-native';
+import { MealIngredient } from '../MealIngredient.vm';
 
 interface AddIngredientFormModalProps {
   addIngredient: (mealFood: MealIngredient) => void;
@@ -21,7 +21,7 @@ export default function AddIngredientFormModal({
   const handleSubmit = (data: Record<string, string>) => {
     const quantity = parseFloat(data.quantity);
     const selectedIngredient: Ingredient | undefined = ingredients.find(
-      (food: any) => food.id === data.food,
+      (ingredient: any) => ingredient.id === data.ingredient,
     );
 
     if (selectedIngredient) {
@@ -43,7 +43,7 @@ export default function AddIngredientFormModal({
     setIsOpen(false);
   };
 
-  const handleOnClickAddFood = () => {
+  const handleOnClickAddIngredient = () => {
     Keyboard.dismiss();
     setIsOpen(true);
   };
@@ -78,7 +78,7 @@ export default function AddIngredientFormModal({
         variant="secondary"
         size="small"
         title="Añadir ingrediente"
-        onPress={handleOnClickAddFood}
+        onPress={handleOnClickAddIngredient}
       />
     </>
   );
