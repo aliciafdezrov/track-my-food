@@ -1,11 +1,9 @@
 import { Image } from 'expo-image';
 import { StyleSheet } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { useColorScheme } from '@/src/hooks/useColorScheme.web';
-import { ThemedText } from '@/src/components/ThemedText';
+import { IngredientsContent } from './components/IngredientsContent';
 
 export default function IngredientsScreen() {
-  const colorScheme = useColorScheme();
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -16,7 +14,7 @@ export default function IngredientsScreen() {
         />
       }
     >
-      <ThemedText>Ingredientes</ThemedText>
+      <IngredientsContent />
     </ParallaxScrollView>
   );
 }

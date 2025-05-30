@@ -9,3 +9,5 @@ export interface Ingredient {
   notes: string;
   unit: string;
 }
+
+export type UnsavedIngredient = Omit<Ingredient, 'id'>;
