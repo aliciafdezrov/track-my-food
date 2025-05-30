@@ -77,7 +77,6 @@ export function MealsContent() {
         onRemoveMealIngredient={handleRemoveMealIngredient}
       />
       <Total ingredients={selectedIngredients} />
-
       <ThemedView style={styles.footerContainer}>
         <Button
           variant="outline"

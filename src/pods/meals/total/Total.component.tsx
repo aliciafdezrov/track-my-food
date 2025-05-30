@@ -38,6 +38,8 @@ export function Total({ ingredients }: TotalProps) {
 const styles = StyleSheet.create({
   container: {
     gap: 8,
+    paddingRight: 16,
+    paddingLeft: 16,
   },
   content: {
     flexDirection: 'row',
