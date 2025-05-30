@@ -1,4 +1,3 @@
-
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -8,15 +7,17 @@ export default function NavigationLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer>
         <Drawer.Screen
-          name="(meals)"
+          name="meals/index"
           options={{
-            title: 'Meals',
+            title: 'Comidas',
+            drawerLabel: 'Comidas',
           }}
         />
         <Drawer.Screen
-          name="(summary)"
+          name="summary/index"
           options={{
-            title: 'Summary',
+            title: 'Resumen',
+            drawerLabel: 'Resumen',
           }}
         />
       </Drawer>
