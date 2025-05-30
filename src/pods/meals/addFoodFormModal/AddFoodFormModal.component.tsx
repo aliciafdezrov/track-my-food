@@ -5,6 +5,7 @@ import { MealFood } from '../MealFood.vm';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
 import { Food } from '@/src/features/food/models/Food.model';
+import { Keyboard } from 'react-native';
 
 interface AddFoodFormModalProps {
   addSelectedFood: (mealFood: MealFood) => void;
@@ -43,6 +44,7 @@ export default function AddFoodFormModal({
   };
 
   const handleOnClickAddFood = () => {
+    Keyboard.dismiss();
     setIsOpen(true);
   };
 
