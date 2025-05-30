@@ -5,13 +5,13 @@ import { Food } from '@/features/food/models/Food.model';
 import { MealFood } from '@/pods/meals/MealFood.vm';
 import { TextInput } from '@/components/ui/TextInput';
 import { Button } from '@/components/ui/Button';
-import { Keyboard, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AddFoodFormModal from '@/pods/meals/addFoodFormModal/AddFoodFormModal.component';
 import { ThemedView } from '@/components/ThemedView';
 import FoodContent from '@/pods/meals/foodContent/FoodContent.component';
 import { getMealFromMealFoodList } from '@/src/utils/MealFood';
 import { addMeal } from '@/features/meal/services/Database';
-import { ThemedText } from '@/src/components/ThemedText';
+import { Total } from '@/src/pods/meals/total/Total.component';
 
 export function MealsContent() {
   const [foods, setFoods] = useState<Food[]>([]);
@@ -71,16 +71,7 @@ export function MealsContent() {
         mealFoodList={selectedFoods}
         onRemoveMealFood={handleRemoveMealFood}
       />
-      <ThemedView style={styles.totalContainer}>
-        <ThemedText type="defaultSemiBold">Total</ThemedText>
-        <ThemedText>
-          {selectedFoods.reduce((acc, food) => acc + food.kcal, 0)} kcal
-        </ThemedText>
-        <ThemedText>
-          {selectedFoods.reduce((acc, food) => acc + food.protein, 0)}{' '}
-          protein(g)
-        </ThemedText>
-      </ThemedView>
+      <Total ingredients={selectedFoods} />
 
       <ThemedView style={styles.footerContainer}>
         <Button
@@ -121,10 +112,5 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     gap: 8,
     marginTop: 16,
-  },
-  totalContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
+  }
 });
