@@ -11,6 +11,7 @@ import { ThemedView } from '@/components/ThemedView';
 import FoodContent from '@/pods/meals/foodContent/FoodContent.component';
 import { getMealFromMealFoodList } from '@/src/utils/MealFood';
 import { addMeal } from '@/features/meal/services/Database';
+import { ThemedText } from '@/src/components/ThemedText';
 
 export function MealsContent() {
   const [foods, setFoods] = useState<Food[]>([]);
@@ -70,6 +71,17 @@ export function MealsContent() {
         mealFoodList={selectedFoods}
         onRemoveMealFood={handleRemoveMealFood}
       />
+      <ThemedView style={styles.totalContainer}>
+        <ThemedText type="defaultSemiBold">Total</ThemedText>
+        <ThemedText>
+          {selectedFoods.reduce((acc, food) => acc + food.kcal, 0)} kcal
+        </ThemedText>
+        <ThemedText>
+          {selectedFoods.reduce((acc, food) => acc + food.protein, 0)}{' '}
+          protein(g)
+        </ThemedText>
+      </ThemedView>
+
       <ThemedView style={styles.footerContainer}>
         <Button
           variant="outline"
@@ -109,5 +121,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     gap: 8,
     marginTop: 16,
+  },
+  totalContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 });
