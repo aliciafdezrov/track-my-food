@@ -77,7 +77,7 @@ export default function AddFoodFormModal({
       <Button
         variant="secondary"
         size="small"
-        title="Añadir comida"
+        title="Añadir ingrediente"
         onPress={handleOnClickAddFood}
       />
     </>

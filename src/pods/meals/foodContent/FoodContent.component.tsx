@@ -42,10 +42,10 @@ export default function FoodContent({
       <Modal
         onClose={handleOnCloseModal}
         visible={foodToRemove !== null}
-        title="Eliminar alimento"
+        title="Eliminar ingrediente"
       >
         <ThemedText type="default">
-          Eliminar el alimento:{' '}
+          Eliminar el ingrediente:
           <ThemedText type="defaultSemiBold">{foodToRemove?.name}</ThemedText>{' '}
           de esta comida
         </ThemedText>
