@@ -1,16 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
-  TextInput,
   TouchableOpacity,
-  Text,
   StyleSheet,
   FlatList,
   ViewStyle,
   TextStyle,
+  Keyboard,
+  Pressable,
 } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { ThemedView } from '../ThemedView';
+import { TextInput } from './TextInput';
 
 interface Option {
   label: string;
@@ -33,23 +34,12 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
   options,
   value,
   onChange,
-  placeholder,
   style,
-  inputStyle,
-  textStyle,
   error,
   label,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const searchInputRef = useRef<TextInput>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      searchInputRef.current?.focus();
-    }
-  }, [isOpen]);
-
   const selectedOption = options.find((opt) => opt.value === value);
   const filteredOptions = options.filter((opt) =>
     opt.label.toLowerCase().includes(searchText.toLowerCase()),
@@ -59,40 +49,39 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
     onChange(option.value);
     setIsOpen(false);
     setSearchText('');
+    Keyboard.dismiss();
+  };
+
+  const handleOpenSelect = () => {
+    setIsOpen(true);
   };
 
   return (
     <ThemedView style={[styles.container, style]}>
       {label && <ThemedText style={styles.label}>{label}</ThemedText>}
-      <TouchableOpacity
-        style={[styles.input, inputStyle, error && styles.inputError]}
-        onPress={() => setIsOpen(!isOpen)}
-      >
-        <ThemedText style={[styles.selectedText, textStyle]}>
-          {selectedOption ? selectedOption.label : placeholder}
-        </ThemedText>
-      </TouchableOpacity>
+
+      <TextInput
+        style={styles.searchInput}
+        value={selectedOption ? selectedOption.label : searchText}
+        onChangeText={setSearchText}
+        placeholder="Selecciona o busca un alimento..."
+        onFocus={handleOpenSelect}
+      />
 
       {isOpen && (
         <View style={styles.dropdown}>
-          <TextInput
-            ref={searchInputRef}
-            style={styles.searchInput}
-            value={searchText}
-            onChangeText={setSearchText}
-            placeholder="Buscar..."
-            placeholderTextColor="#999999"
-          />
           <FlatList
             data={filteredOptions}
             keyExtractor={(item) => item.value}
+            keyboardShouldPersistTaps="handled"
             renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.option}
+              <Pressable
                 onPress={() => handleSelect(item)}
+                style={styles.option}
+                pressRetentionOffset={{ top: 100 }}
               >
                 <ThemedText style={styles.optionText}>{item.label}</ThemedText>
-              </TouchableOpacity>
+              </Pressable>
             )}
           />
         </View>
@@ -112,20 +101,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 8,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#CCCCCC',
-    borderRadius: 8,
-    padding: 12,
-    backgroundColor: '#FFFFFF',
-  },
-  inputError: {
-    borderColor: '#FF3B30',
-  },
-  selectedText: {
-    fontSize: 16,
-    color: '#000000',
-  },
   dropdown: {
     position: 'absolute',
     top: '100%',
@@ -140,10 +115,8 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   searchInput: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#CCCCCC',
     fontSize: 16,
+    width: '100%',
   },
   option: {
     padding: 12,
