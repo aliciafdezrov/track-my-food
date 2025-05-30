@@ -4,5 +4,5 @@ export const calculateFoodValues = (
   quantity: number,
 ) => {
   const portionValue = (nutritionValue * quantity) / portion;
-  return portionValue;
+  return Math.round(portionValue);
 };
