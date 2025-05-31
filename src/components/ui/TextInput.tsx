@@ -8,13 +8,11 @@ import {
   ViewStyle,
   TextInputProps as RNTextInputProps,
 } from 'react-native';
-import { ThemedText } from '../ThemedText';
 
 interface TextInputProps extends Omit<RNTextInputProps, 'style'> {
   style?: ViewStyle;
   inputStyle?: TextStyle;
   error?: string;
-  label?: string;
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
@@ -24,12 +22,10 @@ export const TextInput: React.FC<TextInputProps> = ({
   style,
   inputStyle,
   error,
-  label,
   ...props
 }) => {
   return (
     <View style={[styles.container, style]}>
-      {label && <ThemedText style={styles.label}>{label}</ThemedText>}
       <RNTextInput
         style={[styles.input, inputStyle, error && styles.inputError]}
         value={value}
@@ -46,10 +42,6 @@ export const TextInput: React.FC<TextInputProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
   },
   input: {
     borderWidth: 1,

@@ -1,26 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { View, StyleSheet, ViewStyle, TextStyle, Text } from 'react-native';
-import { Button } from './Button';
-import { NumberInput } from './NumberInput';
-import { SearchableSelect } from './SearchableSelect';
-import { TextInput } from './TextInput';
-
-interface Option {
-  label: string;
-  value: string;
-}
-
-interface FormField {
-  name: string;
-  label: string;
-  placeholder?: string;
-  type: 'text' | 'number' | 'select';
-  required?: boolean;
-  validation?: (value: string) => string | undefined;
-  options?: Option[]; // Solo para campos de tipo select
-  min?: number; // Solo para campos de tipo number
-  max?: number; // Solo para campos de tipo number
-}
+import { View, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { Button } from '../Button';
+import { NumberInput } from '../NumberInput';
+import { SearchableSelect } from '../SearchableSelect';
+import { TextInput } from '../TextInput';
+import { FormItem } from './FormItem.component';
+import { FormField } from './Form.interface';
 
 interface FormProps {
   fields: FormField[];
@@ -49,12 +34,17 @@ export const Form: React.FC<FormProps> = ({
     }
   };
 
+  const handleBlur = (field: FormField) => {
+    const error = validateField(field, values[field.name] || '');
+    setErrors((prev) => ({ ...prev, [field.name]: error || '' }));
+  };
+
   const validateField = (
     field: FormField,
     value: string,
   ): string | undefined => {
     if (field.required && !value) {
-      return 'Este campo es requerido';
+      return 'Este campo es obligatorio';
     }
     if (field.validation) {
       return field.validation(value);
@@ -68,7 +58,9 @@ export const Form: React.FC<FormProps> = ({
   };
 
   const hasErrors = useMemo(() => {
-    return fields.some((field) => validateField(field, values[field.name] || ''));
+    return fields.some((field) =>
+      validateField(field, values[field.name] || ''),
+    );
   }, [fields, values]);
 
   const handleSubmit = () => {
@@ -83,52 +75,64 @@ export const Form: React.FC<FormProps> = ({
       value: values[field.name] || '',
       placeholder: field.placeholder,
       error: errors[field.name],
-      label: field.label,
     };
 
+    let inputComponent;
     switch (field.type) {
       case 'number':
-        return (
+        inputComponent = (
           <NumberInput
             {...commonProps}
             onChangeText={(value) => handleChange(field.name, value)}
+            onBlur={() => handleBlur(field)}
             min={field.min}
             max={field.max}
             style={styles.input}
             inputStyle={textStyle}
           />
         );
+        break;
       case 'select':
-        return (
+        inputComponent = (
           <SearchableSelect
             {...commonProps}
             options={field.options || []}
             onChange={(value) => handleChange(field.name, value)}
+            onBlur={() => handleBlur(field)}
             style={styles.input}
             inputStyle={inputStyle}
             textStyle={textStyle}
           />
         );
+        break;
       case 'text':
       default:
-        return (
+        inputComponent = (
           <TextInput
             {...commonProps}
             onChangeText={(value) => handleChange(field.name, value)}
+            onBlur={() => handleBlur(field)}
             style={styles.input}
             inputStyle={textStyle}
           />
         );
     }
+
+    return (
+      <FormItem
+        key={field.name}
+        label={field.label}
+        required={field.required}
+        style={styles.fieldContainer}
+      >
+        {inputComponent}
+      </FormItem>
+    );
   };
 
   return (
     <View style={[styles.container, style]}>
-      {fields.map((field) => (
-        <View key={field.name} style={styles.fieldContainer}>
-          {renderField(field)}
-        </View>
-      ))}
+      {fields.map((field) => renderField(field))}
       <Button
         title={submitButtonText}
         onPress={handleSubmit}

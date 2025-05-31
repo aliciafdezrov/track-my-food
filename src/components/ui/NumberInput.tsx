@@ -18,7 +18,7 @@ interface NumberInputProps {
   error?: string;
   min?: number;
   max?: number;
-  label?: string;
+  onBlur?: () => void;
 }
 
 export const NumberInput: React.FC<NumberInputProps> = ({
@@ -30,7 +30,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   error,
   min,
   max,
-  label,
+  onBlur,
 }) => {
   const handleChange = (text: string) => {
     // Solo permitir números y punto decimal
@@ -52,13 +52,13 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 
   return (
     <View style={[styles.container, style]}>
-      {label && <ThemedText style={styles.label}>{label}</ThemedText>}
       <TextInput
         style={[styles.input, inputStyle, error && styles.inputError]}
         value={value}
         onChangeText={handleChange}
         placeholder={placeholder}
         keyboardType="numeric"
+        onBlur={onBlur}
       />
       {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
     </View>
@@ -68,10 +68,6 @@ export const NumberInput: React.FC<NumberInputProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
   },
   input: {
     borderWidth: 1,

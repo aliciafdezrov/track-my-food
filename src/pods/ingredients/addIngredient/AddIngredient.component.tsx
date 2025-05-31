@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from '@/components/ui/Form';
+import { Form } from '@/src/components/ui/form/Form.component';
 import { UnsavedIngredient } from '@/src/features/ingredient/models/Ingredient.model';
 
 interface AddIngredientProps {

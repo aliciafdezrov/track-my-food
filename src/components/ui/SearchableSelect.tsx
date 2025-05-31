@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  TouchableOpacity,
   StyleSheet,
   FlatList,
   ViewStyle,
@@ -27,7 +26,7 @@ interface SearchableSelectProps {
   inputStyle?: ViewStyle;
   textStyle?: TextStyle;
   error?: string;
-  label?: string;
+  onBlur?: () => void;
 }
 
 export const SearchableSelect: React.FC<SearchableSelectProps> = ({
@@ -36,7 +35,7 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
   onChange,
   style,
   error,
-  label,
+  onBlur,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -58,14 +57,13 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
 
   return (
     <ThemedView style={[styles.container, style]}>
-      {label && <ThemedText style={styles.label}>{label}</ThemedText>}
-
       <TextInput
         style={styles.searchInput}
         value={selectedOption ? selectedOption.label : searchText}
         onChangeText={setSearchText}
         placeholder="Selecciona o busca un alimento..."
         onFocus={handleOpenSelect}
+        onBlur={onBlur}
       />
 
       {isOpen && (
@@ -96,10 +94,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     position: 'relative',
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 8,
   },
   dropdown: {
     position: 'absolute',

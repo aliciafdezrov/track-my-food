@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form } from '@/components/ui/Form';
+import { Form } from '@/src/components/ui/form/Form.component';
 import { calculateFoodValues } from './AddIngredientFormModal.helper';
 import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
