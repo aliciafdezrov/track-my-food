@@ -1,10 +1,10 @@
 import { Meal } from '@/src/features/meal/models/Meal.model';
 import { SummaryVM } from './Summary.vm';
 import {
-  getDayOfWeek,
   groupMealsByDay,
 } from '@/src/utils/MealIngredient';
 import { calculateNutritionFactsTotal } from '@/src/utils/NutritionFacts';
+import { getDayOfWeek } from '@/src/utils/Date';
 
 const mapMealToSummary = (meal: Meal): SummaryVM => {
   return {

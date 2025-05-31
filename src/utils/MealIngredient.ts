@@ -2,6 +2,7 @@ import { UnsavedMeal } from '../features/meal/models/Meal.model';
 import { MealIngredient } from '../pods/meals/MealIngredient.vm';
 import { Meal } from '../features/meal/models/Meal.model';
 import { calculateNutritionFactsTotal } from './NutritionFacts';
+import { getCurrentDate, getFormattedDate } from './Date';
 
 export function getMealFromMealFoodList(
   mealName: string,
@@ -17,7 +18,7 @@ export function getMealFromMealFoodList(
     fat,
     carbs,
     notes,
-    date: new Date().toISOString(),
+    date: getCurrentDate(),
   };
   return meal;
 }
@@ -25,9 +26,7 @@ export function getMealFromMealFoodList(
 export function groupMealsByDay(meals: Meal[]): Record<string, Meal[]> {
   return meals.reduce(
     (acc, meal) => {
-      const date = new Date(meal.date);
-      const dayKey = date.toISOString().split('T')[0]; // Obtiene YYYY-MM-DD
-
+      const dayKey = getFormattedDate(meal.date);
       if (!acc[dayKey]) {
         acc[dayKey] = [];
       }
@@ -37,18 +36,4 @@ export function groupMealsByDay(meals: Meal[]): Record<string, Meal[]> {
     },
     {} as Record<string, Meal[]>,
   );
-}
-
-export function getDayOfWeek(dateString: string): string {
-  const date = new Date(dateString);
-  const days = [
-    'Domingo',
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-  ];
-  return days[date.getDay()];
 }
