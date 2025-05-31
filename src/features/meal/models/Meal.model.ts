@@ -1,10 +1,8 @@
-export interface Meal {
+import { NutritionFactsVM } from "@/src/vm/NutritionFacts.vm";
+
+export interface Meal extends NutritionFactsVM {
   id: number;
   name: string;
-  kcal: number;
-  protein: number;
-  fat: number;
-  carbs: number;
   notes: string;
   date: string;
 }

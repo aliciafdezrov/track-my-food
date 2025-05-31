@@ -1,10 +1,8 @@
-export interface Ingredient {
+import { NutritionFactsVM } from "@/src/vm/NutritionFacts.vm";
+
+export interface Ingredient extends NutritionFactsVM {
   id: string;
   name: string;
-  kcal: number;
-  protein: number;
-  carbs: number;
-  fat: number;
   portion: number;
   notes: string;
   unit: string;

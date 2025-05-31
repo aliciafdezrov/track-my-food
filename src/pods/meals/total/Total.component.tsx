@@ -2,14 +2,15 @@ import { MealIngredient } from '@/src/pods/meals/MealIngredient.vm';
 import { StyleSheet } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/src/components/ThemedText';
-import { calculateIngredientTotal } from '@/src/utils/MealIngredient';
+import { calculateNutritionFactsTotal } from '@/src/utils/NutritionFacts';
 
 interface TotalProps {
   ingredients: MealIngredient[];
 }
 
 export function Total({ ingredients }: TotalProps) {
-  const { kcal, protein, fat, carbs } = calculateIngredientTotal(ingredients);
+  const { kcal, protein, fat, carbs } =
+    calculateNutritionFactsTotal(ingredients);
 
   const column = (label: string, value: number) => (
     <ThemedView style={styles.column}>
