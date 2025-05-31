@@ -1,3 +1,4 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -11,6 +12,9 @@ export default function NavigationLayout() {
           options={{
             title: 'Comidas',
             drawerLabel: 'Comidas',
+            drawerIcon: ({ color, size }) => (
+              <MaterialIcons name="restaurant" color={color} size={size} />
+            ),
           }}
         />
         <Drawer.Screen
@@ -18,6 +22,9 @@ export default function NavigationLayout() {
           options={{
             title: 'Resumen',
             drawerLabel: 'Resumen',
+            drawerIcon: ({ color, size }) => (
+              <MaterialIcons name="bar-chart" color={color} size={size} />
+            ),
           }}
         />
         <Drawer.Screen
@@ -25,6 +32,9 @@ export default function NavigationLayout() {
           options={{
             title: 'Ingredientes',
             drawerLabel: 'Ingredientes',
+            drawerIcon: ({ color, size }) => (
+              <MaterialIcons name="shopping-cart" color={color} size={size} />
+            ),
           }}
         />
       </Drawer>
