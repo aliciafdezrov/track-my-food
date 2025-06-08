@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ViewStyle,
-  TextStyle,
-  Keyboard,
-  Pressable,
-} from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle, Keyboard, View } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { ThemedView } from '../ThemedView';
 import { TextInput } from './TextInput';
+import { Menu } from './Menu';
+import { Colors } from '@/src/constants/Colors';
 
 interface Option {
   label: string;
@@ -74,22 +68,17 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
       />
 
       {isOpen && (
-        <View style={styles.dropdown}>
-          <FlatList
-            data={filteredOptions}
-            keyExtractor={(item) => item.value}
-            keyboardShouldPersistTaps="handled"
-            renderItem={({ item }) => (
-              <Pressable
-                onPress={() => handleSelect(item)}
-                style={styles.option}
-                pressRetentionOffset={{ top: 100 }}
-              >
-                <ThemedText style={styles.optionText}>{item.label}</ThemedText>
-              </Pressable>
-            )}
-          />
-        </View>
+        <Menu
+          options={filteredOptions}
+          onSelect={handleSelect}
+          emptyState={
+            <View style={styles.emptyStateContainer}>
+              <ThemedText style={styles.emptyStateText}>
+                No se encontraron resultados
+              </ThemedText>
+            </View>
+          }
+        />
       )}
 
       {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
@@ -102,35 +91,19 @@ const styles = StyleSheet.create({
     width: '100%',
     position: 'relative',
   },
-  dropdown: {
-    position: 'absolute',
-    top: '100%',
-    left: 0,
-    right: 0,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#CCCCCC',
-    marginTop: 4,
-    maxHeight: 200,
-    zIndex: 1000,
-  },
   searchInput: {
     fontSize: 16,
     width: '100%',
-  },
-  option: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F0F0F0',
-  },
-  optionText: {
-    fontSize: 16,
-    color: '#000000',
   },
   errorText: {
     color: '#FF3B30',
     fontSize: 12,
     marginTop: 4,
+  },
+  emptyStateContainer: {
+    padding: 12,
+  },
+  emptyStateText: {
+    color: Colors.light.text,
   },
 });
