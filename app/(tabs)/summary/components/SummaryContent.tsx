@@ -4,11 +4,15 @@ import {
   getCurrentWeekMeals,
   getTodayMeals,
 } from '@/src/features/meal/services/Database';
+import { useScreenFocus } from '@/src/hooks/useScreenFocus';
 import { SummaryList } from '@/src/pods/summary/mealsList/SummaryList.component';
-import { mapMealListToSummaryList, mapWeeklyMealListToSummaryList } from '@/src/pods/summary/Summary.mapper';
+import {
+  mapMealListToSummaryList,
+  mapWeeklyMealListToSummaryList,
+} from '@/src/pods/summary/Summary.mapper';
 import { SummaryVM } from '@/src/pods/summary/Summary.vm';
 import { useSQLiteContext } from 'expo-sqlite';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const options = ['Hoy', 'Esta semana'];
 
@@ -18,28 +22,39 @@ export function SummaryContent() {
   const [selectedOption, setSelectedOption] = useState<string>(options[0]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const loadMeals = async () => {
-      setIsLoading(true);
-      const result = await getTodayMeals(db);
-      setSummary(mapMealListToSummaryList(result));
-      setIsLoading(false);
-    };
+  const getTodayMealsFromDb = useCallback(async () => {
+    const result = await getTodayMeals(db);
+    setSummary(mapMealListToSummaryList(result));
+  }, [db]);
 
-    loadMeals();
-  }, []);
+  const getCurrentWeekMealsFromDb = useCallback(async () => {
+    const result = await getCurrentWeekMeals(db);
+    setSummary(mapWeeklyMealListToSummaryList(result));
+  }, [db]);
+
+  const getMeals = useCallback(
+    async (selectedOption: string) => {
+      if (selectedOption === options[0]) {
+        getTodayMealsFromDb();
+      } else {
+        getCurrentWeekMealsFromDb();
+      }
+    },
+    [selectedOption, getTodayMeals, getCurrentWeekMeals],
+  );
 
   const handleSelectOption = async (option: string) => {
     setSelectedOption(option);
-
-    if (option === options[0]) {
-      const result = await getTodayMeals(db);
-      setSummary(mapMealListToSummaryList(result));
-    } else {
-      const result = await getCurrentWeekMeals(db);
-      setSummary(mapWeeklyMealListToSummaryList(result));
-    }
+    getMeals(option);
   };
+
+  const loadMeals = useCallback(async () => {
+    setIsLoading(true);
+    getMeals(selectedOption);
+    setIsLoading(false);
+  }, [selectedOption, getMeals]);
+
+  useScreenFocus(() => loadMeals());
 
   return (
     <ThemedView>
