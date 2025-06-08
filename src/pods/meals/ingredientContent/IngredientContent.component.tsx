@@ -10,11 +10,13 @@ import IngredientList from './components/ingredientList/IngredientList.component
 interface IngredientContentProps {
   mealIngredientList: MealIngredient[];
   onRemoveMealIngredient: (ingredient: MealIngredient) => void;
+  onEditMealIngredient: (ingredient: MealIngredient) => void;
 }
 
 export default function IngredientContent({
   mealIngredientList,
   onRemoveMealIngredient,
+  onEditMealIngredient,
 }: IngredientContentProps) {
   const [ingredientToRemove, setIngredientToRemove] =
     useState<MealIngredient | null>(null);
@@ -34,11 +36,16 @@ export default function IngredientContent({
     handleOnCloseModal();
   };
 
+  const handleClickEditMealIngredient = (mealIngredient: MealIngredient) => {
+    onEditMealIngredient(mealIngredient);
+  };
+
   return (
     <>
       <IngredientList
         mealIngredientList={mealIngredientList}
         onRemoveMealIngredient={handleClickRemoveMealIngredient}
+        onEditMealIngredient={handleClickEditMealIngredient}
       />
       <Modal
         onClose={handleOnCloseModal}

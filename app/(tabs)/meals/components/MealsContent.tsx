@@ -1,7 +1,5 @@
-import { getIngredients } from '@/src/features/ingredient/services/Database';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useSQLiteContext } from 'expo-sqlite';
-import { Ingredient } from '@/src/features/ingredient/models/Ingredient.model';
 import { MealIngredient } from '@/src/pods/meals/MealIngredient.vm';
 import { TextInput } from '@/components/ui/TextInput';
 import { Button } from '@/components/ui/Button';
@@ -14,24 +12,18 @@ import { Total } from '@/src/pods/meals/total/Total.component';
 import IngredientContent from '@/src/pods/meals/ingredientContent/IngredientContent.component';
 
 export function MealsContent() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const db = useSQLiteContext();
   const [selectedIngredients, setSelectedIngredients] = useState<
     MealIngredient[]
   >([]);
   const [mealName, setMealName] = useState<string>('');
   const [mealDescription, setMealDescription] = useState<string>('');
-  useEffect(() => {
-    const loadIngredients = async () => {
-      const result = await getIngredients(db);
-      setIngredients(result);
-    };
-
-    loadIngredients();
-  }, []);
 
   const handleAddMealIngredient = (mealIngredient: MealIngredient) => {
-    setSelectedIngredients((prevIngredients) => [...prevIngredients, mealIngredient]);
+    setSelectedIngredients((prevIngredients) => [
+      ...prevIngredients,
+      mealIngredient,
+    ]);
   };
 
   const handleChangeName = (name: string) => {
@@ -47,15 +39,35 @@ export function MealsContent() {
   }, [mealName, selectedIngredients]);
 
   const onSave = () => {
-    const meal = getMealFromMealFoodList(mealName, selectedIngredients, mealDescription);
+    const meal = getMealFromMealFoodList(
+      mealName,
+      selectedIngredients,
+      mealDescription,
+    );
     addMeal(db, meal);
     handleClear();
   };
 
   const handleRemoveMealIngredient = (mealIngredient: MealIngredient) => {
     setSelectedIngredients((prevIngredients) =>
-      prevIngredients.filter((ingredient) => ingredient.id !== mealIngredient.id),
+      prevIngredients.filter(
+        (ingredient) => ingredient.id !== mealIngredient.id,
+      ),
     );
+  };
+
+  const handleEditMealIngredient = (mealIngredient: MealIngredient) => {
+    setSelectedIngredients((prevIngredients) => {
+      const index = prevIngredients.findIndex(
+        (ingredient) => ingredient.id === mealIngredient.id,
+      );
+      if (index !== -1) {
+        const newIngredients = [...prevIngredients];
+        newIngredients[index] = mealIngredient;
+        return newIngredients;
+      }
+      return prevIngredients;
+    });
   };
 
   const handleClear = () => {
@@ -72,15 +84,17 @@ export function MealsContent() {
         onChangeText={handleChangeName}
         inputStyle={styles.nameInput}
       />
-      <TextInput placeholder='Descripción' value={mealDescription} onChangeText={handleChangeDescription}/>
-  
-      <AddIngredientFormModal
-        ingredients={ingredients}
-        addIngredient={handleAddMealIngredient}
+      <TextInput
+        placeholder="Descripción"
+        value={mealDescription}
+        onChangeText={handleChangeDescription}
       />
+
+      <AddIngredientFormModal addIngredient={handleAddMealIngredient} />
       <IngredientContent
         mealIngredientList={selectedIngredients}
         onRemoveMealIngredient={handleRemoveMealIngredient}
+        onEditMealIngredient={handleEditMealIngredient}
       />
       <Total ingredients={selectedIngredients} />
       <ThemedView style={styles.footerContainer}>
