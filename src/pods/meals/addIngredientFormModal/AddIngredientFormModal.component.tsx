@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Keyboard } from 'react-native';
 import { MealIngredient } from '../MealIngredient.vm';
-import { SaveIngredientModal } from './SaveIngredientModal.component';
+import { SaveIngredientModal } from '../saveIngredientModal/SaveIngredientModal.component';
 
 interface AddIngredientFormModalProps {
   defaultValues?: MealIngredient;

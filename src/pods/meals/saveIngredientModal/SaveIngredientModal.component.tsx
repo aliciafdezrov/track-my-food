@@ -3,7 +3,7 @@ import { Form } from '@/src/components/ui/form/Form.component';
 import { Modal } from '@/components/ui/Modal';
 import { Ingredient } from '@/src/features/ingredient/models/Ingredient.model';
 import { MealIngredient } from '../MealIngredient.vm';
-import { calculateFoodValues } from './AddIngredientFormModal.helper';
+import { calculateFoodValues } from './SaveIngredientModal.helper';
 import { useSQLiteContext } from 'expo-sqlite';
 import { getIngredients } from '@/src/features/ingredient/services/Database';
 

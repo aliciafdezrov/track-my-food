@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Accordion } from '@/src/components/ui/Accordion';
 import { ThemedText } from '@/src/components/ThemedText';
 import { Button } from '@/src/components/ui/Button';
-import { SaveIngredientModal } from '@/src/pods/meals/addIngredientFormModal/SaveIngredientModal.component';
+import { SaveIngredientModal } from '@/src/pods/meals/saveIngredientModal/SaveIngredientModal.component';
 import { MealIngredient } from '@/src/pods/meals/MealIngredient.vm';
 
 interface IngredientItemProps {
