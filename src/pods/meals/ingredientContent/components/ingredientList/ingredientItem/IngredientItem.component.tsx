@@ -33,6 +33,22 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({
         key={ingredient.id}
         title={ingredient.name}
         subtitle={`${ingredient.quantity}${ingredient.unit}`}
+        extra={
+          <View style={styles.buttonContainer}>
+            <Button
+              variant="outline"
+              size="small"
+              onPress={handleOnEdit}
+              icon="edit"
+            />
+            <Button
+              variant="danger"
+              size="small"
+              onPress={() => onRemoveMealIngredient(ingredient)}
+              icon="delete"
+            />
+          </View>
+        }
       >
         <View style={styles.nutritionInfo}>
           <View style={styles.nutritionItem}>
@@ -68,21 +84,6 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({
             </ThemedText>
           </View>
         </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            variant="secondary"
-            size="small"
-            onPress={handleOnEdit}
-            icon="edit"
-          />
-          <Button
-            variant="danger"
-            size="small"
-            onPress={() => onRemoveMealIngredient(ingredient)}
-            icon="delete"
-          />
-        </View>
       </Accordion>
       <SaveIngredientModal
         isOpen={isOpen}
@@ -114,6 +115,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     gap: 8,
-    marginTop: 8,
+    marginEnd: 8,
   },
 });
