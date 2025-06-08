@@ -40,9 +40,11 @@ export function Button({
 }: ButtonProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const isIconOnly = !title && icon;
 
   const getBackgroundColor = () => {
     if (disabled) return colors.textSecondary;
+    if (isIconOnly) return 'transparent';
     switch (variant) {
       case 'primary':
         return colors.primary;
@@ -76,6 +78,7 @@ export function Button({
 
   const getBorderColor = () => {
     if (disabled) return colors.textSecondary;
+    if (isIconOnly) return 'transparent';
     switch (variant) {
       case 'default':
         return colors.textSecondary;
@@ -86,6 +89,29 @@ export function Button({
     }
   };
 
+  const getIconColor = () => {
+    if (disabled) return colors.background;
+    switch (variant) {
+      case 'primary':
+        return colors.primary;
+      case 'secondary':
+        return colors.secondary;
+      case 'outline':
+        return colors.primary;
+      case 'danger':
+        return colors.error;
+      case 'default':
+        return colors.text;
+      default:
+        return colors.primary;
+    }
+  };
+
+  const getSize = () => {
+    if (isIconOnly) return styles.iconOnly;
+    return styles[size];
+  };
+
   return (
     <Pressable
       onPress={onPress}
@@ -93,7 +119,7 @@ export function Button({
       style={[
         styles.button,
         styles[variant],
-        styles[size],
+        getSize(),
         {
           backgroundColor: getBackgroundColor(),
           borderColor: getBorderColor(),
@@ -105,7 +131,7 @@ export function Button({
     >
       <View style={styles.contentContainer}>
         {icon && (
-          <MaterialIcons name={icon} size={iconSize} color={getTextColor()} />
+          <MaterialIcons name={icon} size={iconSize} color={getIconColor()} />
         )}
         {title && (
           <Text
@@ -142,6 +168,10 @@ const styles = StyleSheet.create({
   },
   default: {
     borderWidth: 1,
+  },
+  iconOnly: {
+    paddingVertical: 4,
+    paddingHorizontal: 4,
   },
   small: {
     paddingVertical: 8,
