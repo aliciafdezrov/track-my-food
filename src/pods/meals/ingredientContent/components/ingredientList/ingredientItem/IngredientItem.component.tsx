@@ -73,14 +73,14 @@ export const IngredientItem: React.FC<IngredientItemProps> = ({
           <Button
             variant="secondary"
             size="small"
-            title="Editar"
             onPress={handleOnEdit}
+            icon="edit"
           />
           <Button
             variant="danger"
             size="small"
-            title="Eliminar"
             onPress={() => onRemoveMealIngredient(ingredient)}
+            icon="delete"
           />
         </View>
       </Accordion>
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    gap: 8,
     marginTop: 8,
   },
 });
