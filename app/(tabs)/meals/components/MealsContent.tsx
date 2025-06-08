@@ -101,7 +101,7 @@ export function MealsContent() {
         <Button
           variant="outline"
           size="medium"
-          title="Borrar todo"
+          title="Limpiar"
           onPress={handleClear}
           style={styles.button}
         />
@@ -110,6 +110,7 @@ export function MealsContent() {
           size="medium"
           title="Guardar"
           onPress={onSave}
+          icon="save"
           style={styles.button}
           disabled={disableSaveButton}
         />

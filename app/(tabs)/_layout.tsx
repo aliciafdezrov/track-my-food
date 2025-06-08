@@ -13,7 +13,7 @@ export default function NavigationLayout() {
             title: 'Comidas',
             drawerLabel: 'Comidas',
             drawerIcon: ({ color, size }) => (
-              <MaterialIcons name="restaurant" color={color} size={size} />
+              <MaterialIcons name="ramen-dining" color={color} size={size} />
             ),
           }}
         />
