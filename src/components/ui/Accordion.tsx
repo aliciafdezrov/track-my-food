@@ -16,6 +16,7 @@ const { width: screenWidth } = Dimensions.get('window');
 interface AccordionProps {
   title: string;
   subtitle?: string;
+  extra?: React.ReactNode;
   children?: React.ReactNode;
   onPress?: () => void;
   style?: ViewStyle;
@@ -25,6 +26,7 @@ interface AccordionProps {
 export const Accordion: React.FC<AccordionProps> = ({
   title,
   subtitle,
+  extra,
   children,
   onPress,
   style,
@@ -56,11 +58,14 @@ export const Accordion: React.FC<AccordionProps> = ({
             </ThemedText>
           )}
         </View>
-        <Ionicons
-          name={isExpanded ? 'chevron-up' : 'chevron-down'}
-          size={24}
-          color="#666"
-        />
+        <View style={styles.rightContent}>
+          {extra}
+          <Ionicons
+            name={isExpanded ? 'chevron-up' : 'chevron-down'}
+            size={24}
+            color="#666"
+          />
+        </View>
       </Pressable>
       {isExpanded && <View style={styles.content}>{children}</View>}
     </ThemedView>
@@ -104,5 +109,10 @@ const styles = StyleSheet.create({
     padding: 16,
     borderTopWidth: 1,
     borderTopColor: 'rgba(0,0,0,0.1)',
+  },
+  rightContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 });
