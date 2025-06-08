@@ -4,7 +4,9 @@ import {
   Text,
   ViewStyle,
   TextStyle,
+  View,
 } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from 'react-native';
 
@@ -13,24 +15,28 @@ type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonProps {
   onPress: () => void;
-  title: string;
+  title?: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
   disabled?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
   fitContent?: boolean;
+  icon?: keyof typeof MaterialIcons.glyphMap;
+  iconSize?: number;
 }
 
 export function Button({
   onPress,
-  title,
+  title = '',
   variant = 'primary',
   size = 'medium',
   disabled = false,
   style,
   textStyle,
   fitContent = true,
+  icon,
+  iconSize = 20,
 }: ButtonProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
@@ -97,18 +103,25 @@ export function Button({
         style,
       ]}
     >
-      <Text
-        style={[
-          styles.text,
-          styles[`${variant}Text`],
-          styles[`${size}Text`],
-          { color: getTextColor() },
-          disabled && styles.disabledText,
-          textStyle,
-        ]}
-      >
-        {title}
-      </Text>
+      <View style={styles.contentContainer}>
+        {icon && (
+          <MaterialIcons name={icon} size={iconSize} color={getTextColor()} />
+        )}
+        {title && (
+          <Text
+            style={[
+              styles.text,
+              styles[`${variant}Text`],
+              styles[`${size}Text`],
+              { color: getTextColor() },
+              disabled && styles.disabledText,
+              textStyle,
+            ]}
+          >
+            {title}
+          </Text>
+        )}
+      </View>
     </Pressable>
   );
 }
@@ -165,5 +178,11 @@ const styles = StyleSheet.create({
   disabledText: {},
   fitContentWidth: {
     alignSelf: 'flex-start',
+  },
+  contentContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
   },
 });
