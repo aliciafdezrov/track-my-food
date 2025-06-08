@@ -20,7 +20,7 @@ export function MealsContent() {
     MealIngredient[]
   >([]);
   const [mealName, setMealName] = useState<string>('');
-
+  const [mealDescription, setMealDescription] = useState<string>('');
   useEffect(() => {
     const loadIngredients = async () => {
       const result = await getIngredients(db);
@@ -38,15 +38,18 @@ export function MealsContent() {
     setMealName(name);
   };
 
+  const handleChangeDescription = (description: string) => {
+    setMealDescription(description);
+  };
+
   const disableSaveButton = useMemo(() => {
     return mealName.length === 0 || selectedIngredients.length === 0;
   }, [mealName, selectedIngredients]);
 
   const onSave = () => {
-    const meal = getMealFromMealFoodList(mealName, selectedIngredients);
+    const meal = getMealFromMealFoodList(mealName, selectedIngredients, mealDescription);
     addMeal(db, meal);
-    setSelectedIngredients([]);
-    setMealName('');
+    handleClear();
   };
 
   const handleRemoveMealIngredient = (mealIngredient: MealIngredient) => {
@@ -58,6 +61,7 @@ export function MealsContent() {
   const handleClear = () => {
     setSelectedIngredients([]);
     setMealName('');
+    setMealDescription('');
   };
 
   return (
@@ -68,6 +72,8 @@ export function MealsContent() {
         onChangeText={handleChangeName}
         inputStyle={styles.nameInput}
       />
+      <TextInput placeholder='Descripción' value={mealDescription} onChangeText={handleChangeDescription}/>
+  
       <AddIngredientFormModal
         ingredients={ingredients}
         addIngredient={handleAddMealIngredient}
