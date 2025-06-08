@@ -55,6 +55,12 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
     setIsOpen(true);
   };
 
+  const handleClear = () => {
+    onChange('');
+    setSearchText('');
+    setIsOpen(false);
+  };
+
   return (
     <ThemedView style={[styles.container, style]}>
       <TextInput
@@ -64,6 +70,7 @@ export const SearchableSelect: React.FC<SearchableSelectProps> = ({
         placeholder="Selecciona o busca un alimento..."
         onFocus={handleOpenSelect}
         onBlur={onBlur}
+        onClear={handleClear}
       />
 
       {isOpen && (
