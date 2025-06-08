@@ -13,4 +13,5 @@ export interface FormField {
   options?: Option[]; // Solo para campos de tipo select
   min?: number; // Solo para campos de tipo number
   max?: number; // Solo para campos de tipo number
+  defaultValue?: string; // Valor por defecto para el campo
 }

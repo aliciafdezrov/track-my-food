@@ -24,7 +24,15 @@ export const Form: React.FC<FormProps> = ({
   inputStyle,
   textStyle,
 }) => {
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [values, setValues] = useState<Record<string, string>>(() => {
+    const initialValues: Record<string, string> = {};
+    fields.forEach((field) => {
+      if (field.defaultValue) {
+        initialValues[field.name] = field.defaultValue;
+      }
+    });
+    return initialValues;
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (name: string, value: string) => {
